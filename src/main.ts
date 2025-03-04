@@ -2,6 +2,7 @@ import { error } from "./console.ts";
 import init from "./init.ts";
 import add from "./add.ts";
 import list from "./list.ts";
+import remove from "./remove.ts";
 
 const subcommands: { name: string[]; fn: () => void }[] = [
   {
@@ -15,6 +16,10 @@ const subcommands: { name: string[]; fn: () => void }[] = [
   {
     name: ["add", "a"],
     fn: add,
+  },
+  {
+    name: ["remove", "rm"],
+    fn: remove,
   },
 ];
 
