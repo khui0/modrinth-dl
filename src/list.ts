@@ -1,5 +1,4 @@
-import { error, success, warn } from "./console.ts";
-import { isProjectValid } from "./modrinth.ts";
+import { error } from "./console.ts";
 
 export default async () => {
   try {
