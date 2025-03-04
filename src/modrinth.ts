@@ -37,7 +37,7 @@ export async function fetchLoaders() {
 }
 
 export async function fetchMetadata(
-  target: string,
+  version: string,
   loader: string,
   slugs: string[]
 ) {
@@ -67,7 +67,8 @@ export async function fetchMetadata(
 
   const promises = slugs.map(async (slug: string) => {
     const parts = slug.split(":");
-    const versionType = parts[1]?.toLowerCase() || "release";
+    const versionType: "release" | "beta" | "alpha" =
+      (parts[1]?.toLowerCase() as "release" | "beta" | "alpha") || "release";
 
     const project = await fetchProject(parts[0]);
     if (!project) {
@@ -79,10 +80,10 @@ export async function fetchMetadata(
         error: `${parts[0]} does not support loader: ${loader}`,
       });
     }
-    if (!project.game_versions.includes(target)) {
+    if (!project.game_versions.includes(version)) {
       errors.push({
         slug,
-        error: `${parts[0]} does not support version: ${target}`,
+        error: `${parts[0]} does not support version: ${version}`,
       });
     }
 
@@ -92,7 +93,7 @@ export async function fetchMetadata(
         loaders: string;
         version_type: string;
       }) =>
-        item.game_versions.includes(target) &&
+        item.game_versions.includes(version) &&
         item.loaders.includes(loader) &&
         item.version_type === versionType
     );
@@ -111,5 +112,8 @@ export async function fetchMetadata(
 
   await Promise.allSettled(promises);
 
-  console.log(metadata);
+  return {
+    metadata,
+    errors,
+  };
 }

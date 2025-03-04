@@ -5,6 +5,7 @@ import list from "./list.ts";
 import remove from "./remove.ts";
 import info from "./info.ts";
 import search from "./search.ts";
+import update from "./update.ts";
 
 const subcommands: { name: string[]; fn: () => void }[] = [
   {
@@ -24,12 +25,16 @@ const subcommands: { name: string[]; fn: () => void }[] = [
     fn: remove,
   },
   {
-    name: ["info", "i"],
+    name: ["info"],
     fn: info,
   },
   {
     name: ["search", "s"],
     fn: search,
+  },
+  {
+    name: ["update", "u", "install", "i"],
+    fn: update,
   },
 ];
 
