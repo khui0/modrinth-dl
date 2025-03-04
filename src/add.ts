@@ -26,7 +26,8 @@ export default async () => {
     const invalidProjects: string[] = [];
 
     const promises = mods.map((slug) => {
-      return isProjectValid(slug).then((valid) => {
+      const parts = slug.split(":");
+      return isProjectValid(parts[0]).then((valid) => {
         if (valid) {
           validProjects.push(slug);
         } else {
