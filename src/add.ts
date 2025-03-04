@@ -53,12 +53,12 @@ export default async () => {
       `Added ${
         validProjects.length === 1
           ? validProjects[0]
-          : `${validProjects.length} mods`
+          : `${validProjects.length} mod(s)`
       }`
     );
     if (invalidProjects.length > 0) {
       warn(
-        `Unable to add ${invalidProjects.length} mods` +
+        `Unable to add ${invalidProjects.length} mod(s)` +
           invalidProjects.map((slug) => `\n - ${slug}`).join()
       );
     }

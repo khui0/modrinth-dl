@@ -1,11 +1,16 @@
 import { error } from "./console.ts";
 import init from "./init.ts";
 import add from "./add.ts";
+import list from "./list.ts";
 
 const subcommands: { name: string[]; fn: () => void }[] = [
   {
     name: ["init"],
     fn: init,
+  },
+  {
+    name: ["list", "ls"],
+    fn: list,
   },
   {
     name: ["add", "a"],
