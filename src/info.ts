@@ -1,5 +1,6 @@
 import { error } from "./console.ts";
 import { fetchProject } from "./modrinth.ts";
+import { timeSince } from "./time.ts";
 
 export default async () => {
   const input = Deno.args[1]?.trim();
@@ -17,9 +18,9 @@ export default async () => {
   }
 
   console.log(
-    `%c${project.title}%c\n${project.description}\n%cUpdated%c: ${new Date(
-      project.updated
-    ).toLocaleString()}\n%cVersions%c: ${project.game_versions.join(
+    `%c${project.title}%c\n${project.description}\n%cUpdated%c: ${timeSince(
+      new Date(project.updated)
+    )}\n%cVersions%c: ${project.game_versions.join(
       ", "
     )}\n%cLoaders%c: ${project.loaders.join(", ")}`,
     "font-weight: bold",
