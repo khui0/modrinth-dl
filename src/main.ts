@@ -1,13 +1,16 @@
-import { error } from "./console.ts";
-import init from "./init.ts";
 import add from "./add.ts";
+import info from "./info.ts";
+import init from "./init.ts";
 import list from "./list.ts";
 import remove from "./remove.ts";
-import info from "./info.ts";
 import search from "./search.ts";
 import update from "./update.ts";
 
 const subcommands: { name: string[]; fn: () => void }[] = [
+  {
+    name: ["help", "h"],
+    fn: help,
+  },
   {
     name: ["init"],
     fn: init,
@@ -48,7 +51,15 @@ if (
 ) {
   subcommands.find((item) => item.name.includes(selection))?.fn();
 } else {
-  error(
-    "Unknown command! Try: " + subcommands.map((item) => item.name).join(", ")
+  help();
+}
+
+function help() {
+  console.log(
+    "%cmodrinth-dl\n%chttps://github.com/khui0/modrinth-dl%c" +
+      subcommands.map((command) => `\n  ${command.name[0]}`).join(""),
+    "font-weight: bold",
+    "color: gray",
+    "color: unset"
   );
 }

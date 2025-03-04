@@ -14,6 +14,10 @@ export default async () => {
       config.mods
     );
 
+    metadata.errors.forEach((item) => {
+      error(item.error);
+    });
+
     // deno-lint-ignore no-explicit-any
     metadata.metadata.forEach(async (selected: any) => {
       await downloadFile(
@@ -21,11 +25,7 @@ export default async () => {
         selected.files[0].filename,
         config.out
       );
-      console.log(`Downloading ${selected.name}...`);
-    });
-
-    metadata.errors.forEach((item) => {
-      error(item.error);
+      console.log(`Downloading ${selected.files[0].filename}`);
     });
   } catch (_e) {
     error("Unable to find modrinth.json!");

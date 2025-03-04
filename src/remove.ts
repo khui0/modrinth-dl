@@ -51,7 +51,7 @@ export default async () => {
     if (invalidProjects.length > 0) {
       warn(
         `Unable to remove ${invalidProjects.length} mod(s)` +
-          invalidProjects.map((slug) => `\n - ${slug}`).join()
+          invalidProjects.map((slug) => `\n  ${slug}`).join()
       );
     }
   } catch (_e) {

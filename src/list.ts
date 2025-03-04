@@ -6,7 +6,7 @@ export default async () => {
     const config = JSON.parse(Deno.readTextFileSync("./modrinth.json"));
     console.log(
       `${config.mods.length} mod(s)` +
-        config.mods.map((slug: string) => `\n - ${slug}`).join()
+        config.mods.map((slug: string) => `\n  ${slug}`).join()
     );
   } catch (_e) {
     error("Unable to find modrinth.json!");
