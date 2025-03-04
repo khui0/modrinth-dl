@@ -21,6 +21,10 @@ export async function fetchLoaders() {
   return await queryModrinth("/tag/loader");
 }
 
+export async function isProjectValid(slug: string) {
+  return await queryModrinth("/project/" + slug + "/check");
+}
+
 export const MODRINTH_VERSIONS: string[] = (await fetchVersions()).map(
   (item: { version: string }) => item.version
 );
