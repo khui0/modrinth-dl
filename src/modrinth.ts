@@ -15,6 +15,11 @@ export const MODRINTH_LOADERS: string[] = (await fetchLoaders()).map(
 export async function isProjectValid(slug: string) {
   return await queryModrinth("/project/" + slug + "/check");
 }
+
+export async function searchProjects(query: string) {
+  return await queryModrinth("/search?query=" + encodeURIComponent(query));
+}
+
 export async function fetchProject(slug: string) {
   return await queryModrinth("/project/" + slug);
 }
