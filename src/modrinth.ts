@@ -5,6 +5,16 @@ export async function queryModrinth(endpoint: string) {
   }
 }
 
+export const MODRINTH_VERSIONS: string[] = (await fetchVersions()).map(
+  (item: { version: string }) => item.version
+);
+export const MODRINTH_LOADERS: string[] = (await fetchLoaders()).map(
+  (item: { name: string }) => item.name
+);
+
+export async function isProjectValid(slug: string) {
+  return await queryModrinth("/project/" + slug + "/check");
+}
 export async function fetchProject(slug: string) {
   return await queryModrinth("/project/" + slug);
 }
@@ -20,17 +30,6 @@ export async function fetchVersions() {
 export async function fetchLoaders() {
   return await queryModrinth("/tag/loader");
 }
-
-export async function isProjectValid(slug: string) {
-  return await queryModrinth("/project/" + slug + "/check");
-}
-
-export const MODRINTH_VERSIONS: string[] = (await fetchVersions()).map(
-  (item: { version: string }) => item.version
-);
-export const MODRINTH_LOADERS: string[] = (await fetchLoaders()).map(
-  (item: { name: string }) => item.name
-);
 
 export async function fetchMetadata(
   target: string,

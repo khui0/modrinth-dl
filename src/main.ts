@@ -3,6 +3,7 @@ import init from "./init.ts";
 import add from "./add.ts";
 import list from "./list.ts";
 import remove from "./remove.ts";
+import info from "./info.ts";
 
 const subcommands: { name: string[]; fn: () => void }[] = [
   {
@@ -20,6 +21,10 @@ const subcommands: { name: string[]; fn: () => void }[] = [
   {
     name: ["remove", "rm"],
     fn: remove,
+  },
+  {
+    name: ["info", "i"],
+    fn: info,
   },
 ];
 
