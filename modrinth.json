@@ -1,0 +1,6 @@
+{
+  "version": "1.21.4",
+  "loader": "fabric",
+  "out": "./mods",
+  "mods": []
+}
