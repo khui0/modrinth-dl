@@ -17,8 +17,19 @@ const args = {
 export default () => {
   const options = parseArgs(Deno.args.slice(1), args);
 
-  if (options.target && options.loader && options.mods && options.out) {
-    // Skip UI
+  if (options.v && options.l && options.o) {
+    const version = options.v;
+    if (!isValidVersion(version)) {
+      error("Invalid target version!");
+      return;
+    }
+    const loader = options.l;
+    if (!isValidLoader(loader)) {
+      error("Invalid target loader!");
+      return;
+    }
+    const outDir = options.o || "";
+    createModrinthJSON(version, loader, outDir);
   } else {
     console.log(
       `This utility will create a modrinth.json file at the current directory (${Deno.cwd()})\n\nUse the 'add' command afterwards to add mods\nUse the 'update' command to download mods\nPress ^C at any time to quit\n`
@@ -37,24 +48,31 @@ export default () => {
     }
 
     const outDir = prompt("Output directory:", options.o || "");
-
-    Deno.writeTextFileSync(
-      "./modrinth.json",
-      JSON.stringify(
-        {
-          version,
-          loader,
-          out: outDir,
-          mods: [],
-        },
-        null,
-        2
-      )
-    );
-
-    success("Created a modrinth.json file!");
+    createModrinthJSON(version, loader, outDir);
   }
 };
+
+function createModrinthJSON(
+  version: string | undefined | null,
+  loader: string | undefined | null,
+  out: string | undefined | null
+) {
+  Deno.writeTextFileSync(
+    "./modrinth.json",
+    JSON.stringify(
+      {
+        version,
+        loader,
+        out,
+        mods: [],
+      },
+      null,
+      2
+    )
+  );
+
+  success("Created a modrinth.json file!");
+}
 
 function isValidVersion(target: string | null | undefined): boolean {
   if (target === null || !target) return false;
