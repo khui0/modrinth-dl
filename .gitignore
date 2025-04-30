@@ -131,3 +131,5 @@ dist
 
 mods
 modrinth*.json
+
+.DS_Store
